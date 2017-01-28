@@ -1,0 +1,96 @@
+\documentclass{article}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+
+\geometry{
+a4paper,
+right=10mm,
+left=10mm,
+top=10mm,
+bottom=10mm,	
+}
+
+\begin{document}
+
+\pagenumbering{gobble}
+
+\begin{center}
+\textbf{\huge Assignment 1 : CS335} \\
+\textit{\Large Jayant Agrawal}         14282 \\
+Section S1
+\end{center}
+
+\textbf{\huge Link Issue!}
+
+\section{Program Output}
+\begin{figure}[h!]
+\begin{center}
+$5 \hspace{15pt} 13$ \\
+$13 \hspace{15pt} 5$
+\end{center}
+\caption{Program Output}
+\end{figure}
+
+During compilation, the structure \emph{rec} is allocated an address where the first integer block stores $13$ and the next block(adjacent) stores $5$. In test2, since \emph{rec} is already given an address, this structure also points to the same address, but with exchanged variable names. Thus, when \emph{f1} is called, it prints 5 first, because x here points to the second integer block. And, when the print statement is called in test1, it prints 13 first, because here x points to the first integer block.
+\section{Relocation}
+Locations that need relocation in both the object files are given in Figure \ref{tab1} and Figure \ref{tab2} respectively.
+\begin{figure}[h!]
+\begin{center}
+\begin{tabular}{|c|c|}
+\hline
+\textbf{Symbol Name} & \textbf{Offset} \\
+\hline
+f1 - 4  & a \\
+rec + 0 & 10 \\
+rec - 4 & 16 \\
+.rodata + 0 & 1d \\
+printf - 4 & 27\\
+\hline
+\end{tabular}
+\caption{test1.o}
+\label{tab1}
+\end{center}
+\end{figure}
+
+\begin{figure}[h!]
+\begin{center}
+\begin{tabular}{|c|c|}
+\hline
+\textbf{Symbol Name} & \textbf{Offset} \\
+\hline
+rec + 0 & c \\
+rec - 4 & 6 \\
+.rodata + 0 & 13 \\
+printf - 4 & 1d\\
+\hline
+\end{tabular}
+\caption{test2.o}
+\label{tab2}
+\end{center}
+\end{figure}
+
+The final address for them are given in Figure \ref{fin}.
+\begin{figure}[h!]
+\begin{center}
+\begin{tabular}{|c|c|}
+\hline
+\textbf{Symbol Name} & \textbf{Final Address} \\
+\hline
+f1   & 4055f \\
+rec  & 601040 \\
+printf  & 400410\\
+\hline
+\end{tabular}
+\caption{Final Address given to the symbols}
+\label{fin}
+\end{center}
+\end{figure}
+
+
+
+\end{document}
+
+
