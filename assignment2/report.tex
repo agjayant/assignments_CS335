@@ -1,0 +1,61 @@
+\documentclass{article}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{multicol}
+
+\geometry{
+a4paper,
+right=10mm,
+left=10mm,
+top=10mm,
+bottom=10mm,	
+}
+\newcommand\tab[1][5pt]{\hspace*{#1}} 
+\begin{document}
+
+\pagenumbering{gobble}
+
+\begin{center}
+\textbf{\huge Assignment 2 : CS335} \\
+\textit{\Large Jayant Agrawal}         14282 \\
+Section S1
+\end{center}
+
+\textbf{\huge Parsing}
+
+\section*{Sol2: Parse Table}
+The grammer: $G$ has the following productions(numbered):
+\begin{enumerate}
+\item $S \rightarrow Ma$
+\item $S \rightarrow bMc$
+\item $S \rightarrow dc$
+\item $S \rightarrow bda$
+\item $M \rightarrow d$
+\end{enumerate}
+Adding the production $S' \rightarrow S$ to get augmented grammer $G'$ and computing \emph{Sets-of-items}.
+\begin{multicols}{2}
+\begin{equation*}
+\begin{aligned}
+I_0 &: S' \rightarrow .S  \\
+&: S \rightarrow .Ma \hspace{5pt} | \tab .bMc \tab | \tab .dc \tab | \tab .bda \\
+&: M \rightarrow .d
+\end{aligned}
+\end{equation*}
+
+\begin{equation*}
+\begin{aligned}
+I_1 : goto(I_0,S) &: S' \rightarrow S.  \\
+\end{aligned}
+\end{equation*}
+
+
+\end{multicols}
+ 	
+
+\end{document}
+
+
+
