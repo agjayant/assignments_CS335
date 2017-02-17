@@ -5,6 +5,8 @@
 \usepackage{algorithm}
 \usepackage{algpseudocode}
 \usepackage{multicol}
+\usepackage{multirow}
+\usepackage{arydshln}
 
 \geometry{
 a4paper,
@@ -35,7 +37,7 @@ The grammer: $G$ has the following productions(numbered):
 \item $S \rightarrow bda$
 \item $M \rightarrow d$
 \end{enumerate}
-Adding the production $S' \rightarrow S$ to get augmented grammer $G'$ and computing \emph{Sets-of-items}.
+Adding the production $S' \rightarrow S$ to get augmented grammer $G'$ and computing \emph{Sets-of-items}:
 \begin{multicols}{2}
 \begin{equation*}
 \begin{aligned}
@@ -52,8 +54,108 @@ I_1 : goto(I_0,S) &: S' \rightarrow S.  \\
 \end{equation*}
 
 
+\begin{equation*}
+\begin{aligned}
+I_2 : goto(I_0,M) &: S \rightarrow M.a  \\
+\end{aligned}
+\end{equation*}
+
+
+\begin{equation*}
+\begin{aligned}
+I_3 : goto(I_2,a) &: S \rightarrow Ma.  \\
+\end{aligned}
+\end{equation*}
+
+
+\begin{equation*}
+\begin{aligned}
+I_4 : goto(I_0,b) &: S \rightarrow b.Mc \tab | \tab b.da  \\
+&: M \rightarrow .d \\
+\end{aligned}
+\end{equation*}
+
+
+\begin{equation*}
+\begin{aligned}
+I_5 : goto(I_4,M) &: S \rightarrow bM.c  \\
+\end{aligned}
+\end{equation*}
+
+
+\begin{equation*}
+\begin{aligned}
+I_6 : goto(I_4,d) &: S \rightarrow bd.a  \\
+&: M \rightarrow d.  \\
+\end{aligned}
+\end{equation*}
+
+\begin{equation*}
+\begin{aligned}
+I_7 : goto(I_5,c) &: S \rightarrow bMc.  \\
+\end{aligned}
+\end{equation*}
+
+\begin{equation*}
+\begin{aligned}
+I_8 : goto(I_6,a) &: S \rightarrow bda.  \\
+\end{aligned}
+\end{equation*}
+
+\begin{equation*}
+\begin{aligned}
+I_9 : goto(I_0,d) &: S \rightarrow d.c  \\
+&: M \rightarrow d.  \\
+\end{aligned}
+\end{equation*}
+
+
+\begin{equation*}
+\begin{aligned}
+I_{10} : goto(I_9,c) &: S \rightarrow dc.  \\
+\end{aligned}
+\end{equation*}
 \end{multicols}
- 	
+
+Also, the first and follow sets of the non-terminals in $G$ are as follows:\\
+first(S) = \{b,d\}\\
+first(M) = \{d\} \\
+follow(S) = \{\$\} \\
+follow(M) = \{a,c\} \\ \\
+Using the above first, follow sets and the sets-of-items, we get the following SLR Parse Table :
+\begin{center}
+\begin{tabular}{||c | c c c c c | c c||}
+\hline
+\hline
+\multirow{2}{*}{\textbf{STATE}} & \multicolumn{5}{c|}{\emph{action}}  & \multicolumn{2}{c||}{\emph{goto}} \\
+\cline{2-8}
+& \bf a & \bf b & \bf c & \bf d & \$ & \bf S &\bf M \\
+\hline
+0 & & s4 & & s9 & & 1 &2 \\
+\hdashline[0.5pt/10pt]
+1 & & & & & \emph{acc} &  & \\
+\hdashline[0.5pt/10pt]
+2 &s3 &  & &  & &  & \\
+\hdashline[0.5pt/10pt]
+3 & & & & & r1 &  & \\
+\hdashline[0.5pt/10pt]
+4 & & & & s6 &  &  & 5\\
+\hdashline[0.5pt/10pt]
+5 & & & s7& &  &  & \\
+\hdashline[0.5pt/10pt]
+6 & \begin{tabular}{c} s8 \\ r5 \end{tabular} & & r5& &  &  & \\
+\hdashline[0.5pt/10pt]
+7 &  & & & & r2 &  & \\
+\hdashline[0.5pt/10pt]
+8 &  & & & & r4 &  & \\
+\hdashline[0.5pt/10pt]
+9 & r5 & &\begin{tabular}{c} s10 \\ r5 \end{tabular} & &  &  & \\
+\hdashline[0.5pt/10pt]
+10 &  & & & & r3 &  & \\
+\hline
+\hline
+\end{tabular}
+\end{center}
 
 \end{document}
 
